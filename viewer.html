@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -9,8 +9,7 @@
   <header>
     <h1>JS Explain</h1>
     <div class="buttons">
-      <button id="toggle-btn">Expandir/Contrair</button>
-      <button id="copy-btn">Copiar Código</button>
+      <!-- Botões removidos -->
       <a href="index.html" class="back-btn">⬅ Voltar</a>
     </div>
   </header>
@@ -21,7 +20,6 @@
 
   <script type="module">
     const codeContainer = document.getElementById('code-container');
-    let expanded = true;
 
     const params = new URLSearchParams(window.location.search);
     const projectId = params.get('project');
@@ -48,18 +46,7 @@
 
         renderCode();
 
-        document.getElementById('toggle-btn').addEventListener('click', () => {
-          expanded = !expanded;
-          codeContainer.style.maxHeight = expanded ? 'none' : '300px';
-          codeContainer.style.overflow = expanded ? 'visible' : 'auto';
-        });
-
-        document.getElementById('copy-btn').addEventListener('click', () => {
-          const text = Array.from(codeContainer.childNodes).map(el => el.textContent).join('');
-          navigator.clipboard.writeText(text).then(() => {
-            alert('Código copiado!');
-          });
-        });
+        // Removidos os event listeners dos botões que não existem mais
       })
       .catch(error => {
         codeContainer.textContent = 'Erro ao carregar o código do projeto.';

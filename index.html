@@ -11,22 +11,34 @@
     <p>Escolha um projeto para estudar o código interativo:</p>
   </header>
 
-  <main>
-    <ul id="project-list"></ul>
-  </main>
+  <!-- O conteúdo dos projetos será injetado aqui pelo script -->
+  <main id="project-list"></main>
 
   <script type="module">
     import { projetos } from './js/projects.js';
 
-    const lista = document.getElementById('project-list');
+    const container = document.getElementById('project-list');
+    let ul = null; // Lista atual dentro de cada nível
 
-    projetos.forEach(proj => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = `viewer.html?project=${proj.id}`;
-      a.textContent = proj.nome;
-      li.appendChild(a);
-      lista.appendChild(li);
+    projetos.forEach(item => {
+      // Se for título de nível, cria um <h2> e inicia uma nova <ul>
+      if (item.tipo === 'titulo') {
+        const h2 = document.createElement('h2');
+        h2.textContent = item.nivel;
+        container.appendChild(h2);
+
+        ul = document.createElement('ul');
+        container.appendChild(ul);
+      }
+      // Caso contrário, adiciona o projeto dentro da lista atual
+      else if (ul) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `viewer.html?project=${item.id}`;
+        a.textContent = item.nome;
+        li.appendChild(a);
+        ul.appendChild(li);
+      }
     });
   </script>
 </body>

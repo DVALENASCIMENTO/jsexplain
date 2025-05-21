@@ -1,8 +1,9 @@
+/* ---------- Estrutura geral da página ---------- */
 body {
   margin: 0;
   font-family: Consolas, monospace;
-  background-color: #1e1e1e;
-  color: #d4d4d4;
+  background-color: #1e1e1e;   /* fundo padrão do tema Dark+ do VS Code */
+  color: #d4d4d4;              /* cor padrão do texto */
 }
 
 header {
@@ -14,19 +15,31 @@ header {
   border-bottom: 2px solid #333;
 }
 
-button {
-  background: #0e639c;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
-  cursor: pointer;
-  border-radius: 5px;
+a {
+  color: #3794ff; /* azul VS Code */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-button:hover {
-  background: #1177bb;
+a:hover {
+  color: #ffffff; /* branco ao passar o mouse */
+  text-decoration: underline;
 }
+
+.back-btn {
+  background-color: #0e639c; /* botão mais escuro */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #1177bb; /* destaque ao passar o mouse */
+}
+
 
 pre {
   padding: 1rem;
@@ -34,13 +47,24 @@ pre {
   line-height: 1.6;
 }
 
-span.keyword       { color: #569cd6; }
-span.function-name { color: #dcdcaa; }
-span.string        { color: #ce9178; }
-span.comment       { color: #6a9955; }
-span.number        { color: #b5cea8; }
-span.default       { color: #d4d4d4; }
+/* ---------- Highlighting por token ---------- */
+span.keyword            { color: #569cd6; }  /* let, const, function, if…   */
+span.function-name      { color: #dcdcaa; }  /* nomes de funções            */
+span.method,            
+span.method-call        { color: #dcdcaa; }  /* métodos do JS               */
+span.string             { color: #ce9178; }  /* strings                     */
+span.number             { color: #b5cea8; }  /* números literais            */
+span.operator           { color: #d4d4d4; }  /* +, -, *, /, =, ==…          */
+span.property           { color: #9cdcfe; }  /* textContent, classList…     */
+span.object             { color: #4ec9b0; }  /* document, Math, Date…       */
+span.loop               { color: #c586c0; }  /* for, while — destaque extra */
+span.comment            { color: #6a9955; }  /* comentários                 */
+span.template-literal   { color: #ce9178; }  /* `texto` (mesma cor de string)*/
+span.template-expression{ color: #4ec9b0; }  /* ${expressão}                */
+span.function-arrow     { color: #dcdcaa; }  /* ()=>                        */
+span.default            { color: #d4d4d4; }  /* texto padrão                */
 
+/* ---------- Tooltip para dicas (tip) ---------- */
 span[data-tooltip] {
   position: relative;
   cursor: help;

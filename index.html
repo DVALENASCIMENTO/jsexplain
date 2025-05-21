@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Explain – Projetos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>JS Explain</h1>
+    <p>Escolha um projeto para estudar o código interativo:</p>
+  </header>
+
+  <main>
+    <ul id="project-list"></ul>
+  </main>
+
+  <script type="module">
+    import { projetos } from './js/projects.js';
+
+    const lista = document.getElementById('project-list');
+
+    projetos.forEach(proj => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `viewer.html?project=${proj.id}`;
+      a.textContent = proj.nome;
+      li.appendChild(a);
+      lista.appendChild(li);
+    });
+  </script>
+</body>
+</html>

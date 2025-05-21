@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Explain – Visualizador de Código</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>JS Explain</h1>
+    <div class="buttons">
+      <button id="toggle-btn">Expandir/Contrair</button>
+      <button id="copy-btn">Copiar Código</button>
+      <a href="index.html" class="back-btn">⬅ Voltar</a>
+    </div>
+  </header>
+
+  <main>
+    <pre id="code-container" aria-label="Código JavaScript com explicações interativas"></pre>
+  </main>
+
+  <script type="module">
+    const codeContainer = document.getElementById('code-container');
+    let expanded = true;
+
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get('project');
+
+    if (!projectId) {
+      codeContainer.textContent = 'Nenhum projeto selecionado.';
+      throw new Error('Projeto não especificado.');
+    }
+
+    import(`./js/codeParts/${projectId}.js`)
+      .then(module => {
+        const codeParts = module.codeParts;
+
+        function renderCode() {
+          codeContainer.innerHTML = '';
+          codeParts.forEach(part => {
+            const span = document.createElement('span');
+            span.textContent = part.text;
+            span.className = part.class || 'default';
+            if (part.tip) span.setAttribute('data-tooltip', part.tip);
+            codeContainer.appendChild(span);
+          });
+        }
+
+        renderCode();
+
+        document.getElementById('toggle-btn').addEventListener('click', () => {
+          expanded = !expanded;
+          codeContainer.style.maxHeight = expanded ? 'none' : '300px';
+          codeContainer.style.overflow = expanded ? 'visible' : 'auto';
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+          const text = Array.from(codeContainer.childNodes).map(el => el.textContent).join('');
+          navigator.clipboard.writeText(text).then(() => {
+            alert('Código copiado!');
+          });
+        });
+      })
+      .catch(error => {
+        codeContainer.textContent = 'Erro ao carregar o código do projeto.';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
